@@ -85,16 +85,14 @@ namespace Kooboo.Sites.Scripting.Global
          
         public int count()
         {
-            // TODO: improve performance.
-            var all = take(99999); 
-            if (all == null)
+            var query = new IndexedDB.Dynamic.Query(this.ktable.table);
+
+            if (!string.IsNullOrEmpty(this.SearchCondition))
             {
-                return 0; 
+                var filter = query.ParserFilter(this.SearchCondition);
+                query.items = filter;
             }
-            else
-            {
-                return all.Count(); 
-            }
+            return query.Count();
         }
     }
 }

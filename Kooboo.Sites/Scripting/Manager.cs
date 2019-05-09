@@ -18,6 +18,10 @@ namespace Kooboo.Sites.Scripting
 {
     public class Manager
     {
+        static Manager()
+        {
+            Jint.JintEngineHelper.AddTypeMapper();
+        }
 
         public static string DebuggerEngineName { get; set; } = "__kooboodebugger";
 
@@ -763,7 +767,7 @@ namespace Kooboo.Sites.Scripting
                 }
             }
 
-            else if (Lib.Reflection.TypeHelper.IsCollection(obj.GetType()))
+            else if (Lib.Reflection.TypeHelper.IsGenericCollection(obj.GetType()))
             {
                 return result;
             }
@@ -840,7 +844,7 @@ namespace Kooboo.Sites.Scripting
             }
             else
             {
-                bool isCol = TypeHelper.IsCollection(type);
+                bool isCol = TypeHelper.IsGenericCollection(type);
                 if (TypeHelper.IsDictionary(type))
                 {
                     isArray = false;
